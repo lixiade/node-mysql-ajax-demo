@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="top_line">
+            <span id="zhuce" style="font-size: 38px;">登录</span>
+        </div>
+        <div class="register_container">
+            <div id="login-form">
+                <div class="form_input">
+                    <div class="input_name">
+                        <input type="text" name="username" id="username" placeholder="你的手机号/邮箱" class="input_inner" />
+                    </div>
+                </div>
+                <div class="hidden_safe">
+                    <p class="tips" id="tips.username"></p>
+                </div>
+                <div class="form_input">
+                    <div class="input_name">
+                        <input type="password" name="password" id="password" placeholder="密码" class="input_inner" />
+                    </div>
+                </div>
+                <div class="hidden_safe">
+                    <p class="tips" id="tips.password"></p>
+                </div>
+
+                <div class="form_input">
+                    <label class="check_agree">
+                        <label id="checkbox" class="check_box">
+                            <input name="agree" type="checkbox">
+                        </label>
+                        记住我
+                        <span>不是自己的电脑不要勾此选项</span>
+                    </label>
+                </div>
+                <div class="form_input">
+                    <button class="login btn" id="login">登录</button>
+                    <a href="register.html" class="reg btn">注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var oUser = document.getElementById("username");
+        var oPwd = document.getElementById("password");
+        var oBtn = document.getElementById("login");
+        oBtn.onclick = function () {
+            try {
+                var xhr = new XMLHttpRequest()
+            } catch{
+                var xhr = new ActiveXObject('Microsoft.XMLHTTP')
+            }
+            xhr.open('POST', '/login', true);
+            //发送请求,get方式数据在url地址中，post方式在header请求头中
+            xhr.send("username=" + oUser.value + "&password=" + oPwd.value);
+            //监听readystate状态
+            xhr.onreadystatechange = function (ev) {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    //alert(xhr.responseText);
+
+                    obj = JSON.parse(xhr.responseText)
+                    if (obj.code !== 2) {
+                        alert(obj.message);
+                    } else {
+                        window.location.href = "/admin.html";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

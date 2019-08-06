@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .top-line {
+            position: sticky;
+            display: block;
+
+            height: 50px;
+            width: 100%;
+            background-color: #343a40;
+        }
+
+        .top-left {
+            float: left;
+            display: flex;
+            line-height: 50px;
+        }
+
+        .sys-title {
+            color: aliceblue;
+            font-size: 20px;
+            padding-left: 20px;
+
+        }
+
+        .sys-add {
+            display: flex;
+            flex-direction: column;
+            margin-left: 20px;
+            justify-content: center;
+        }
+
+        .sys-add>input {
+            border-radius: 4px;
+            height: 40px;
+            text-align: center;
+            background-color: #28a745;
+            color: white;
+            border: solid transparent;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .sys-add>input:hover {
+            color: #fff;
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .top-right {
+            float: right;
+            display: flex;
+            height: 50px;
+        }
+
+        .sys-exit {
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+            justify-content: center;
+        }
+
+        .sys-exit>input {
+            border-radius: 4px;
+            height: 40px;
+            background-color: #dc3545;
+            color: white;
+            border: solid transparent;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .sys-exit>input:hover {
+            color: #fff;
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        .main {
+            display: block;
+            height: 100px;
+        }
+
+        .table {
+            border: 1px solid #e8e8e8;
+        }
+
+        .title {
+            display: flex;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .col {
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .row {
+            height: 50px;
+            line-height: 50px;
+            width: 100%;
+            display: flex;
+            text-align: center;
+        }
+
+        .col-wrapper {
+            display: flex;
+            flex: 4;
+        }
+
+        .deal {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            margin: 0 50px;
+        }
+
+        .deal>input {
+            flex: 1;
+            border-radius: 4px;
+
+            margin: 5px 10px;
+            color: white;
+            border: solid transparent;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .update {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .update:hover {
+            color: #fff;
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+
+        .delete {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+
+        }
+
+        .delete:hover {
+            color: #fff;
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .overlay {
+            /* display: none; */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.5);
+            /*暗淡的背景*/
+        }
+
+        .add-screen {
+            /* display: none; */
+            width: 400px;
+            height: 400px;
+            z-index: 100;
+            background-color: #fff;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+
+        }
+
+        .add-title {
+            height: 60px;
+            line-height: 60px;
+            background: #17a2b8;
+            color: white;
+            font-size: 25px;
+            padding-left: 30px;
+
+        }
+
+        .add-body {
+          
+        }
+
+        .body-wrapper {
+            height: 50px;
+            line-height: 50px;
+            padding: 0 auto;
+            width: 100%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="top-line">
+            <div class="top-left">
+                <div class="sys-title">
+                    用户信息后台管理系统
+                </div>
+                <div class="sys-add">
+                    <input type="button" value="添加用户">
+                </div>
+            </div>
+            <div class="top-right">
+                <div class="sys-exit">
+                    <input type="button" value="退出系统">
+                </div>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="table" id="table">
+                <div class="title">
+                    <div class="col">编号</div>
+                    <div class="col">姓名</div>
+                    <div class="col">电话</div>
+                    <div class="col">地址</div>
+                    <div class="col">操作</div>
+                </div>
+
+
+
+
+                <!-- <div class="row">
+                            <div class="col-wrapper">
+                                <div class="col">1</div>
+                                <div class="col">张三</div>
+                                <div class="col">1234567890</div>
+                                <div class="col">四川成都</div>
+                            </div>
+            
+                            <div class="col">
+                                <div class="deal">
+                                    <input type="button" value="修改" class="update">
+                                    <input type="button" value="删除" class="delete">
+                                </div>
+                            </div>
+                        </div> -->
+            </div>
+        </div>
+
+        <div class="overlay">
+            <div class="add-screen">
+                <div class="add-title">
+                    <!-- <div class="screen-title-info">添加用户</div> -->
+                    添加用户
+                </div>
+                <div class="add-body">
+                    <div class="body-wrapper">
+                        <label>id</label>
+                        <input type="text" value="张三">
+                    </div>
+                    <div class="body-wrapper">
+                        <label>id</label>
+                        <input type="text" value="张三">
+                    </div>
+                    <div class="body-wrapper">
+                        <label>id</label>
+                        <input type="text" value="张三">
+                    </div>
+                    <div class="body-wrapper">
+                        <label>id</label>
+                        <input type="text" value="张三">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        window.onload = function getList() {
+
+            try {
+                var xhr = new XMLHttpRequest()
+            } catch{
+                var xhr = new ActiveXObject('Microsoft.XMLHTTP')
+            }
+            xhr.open('GET', '/list', true);
+            //发送请求,get方式数据在url地址中，post方式在header请求头中
+            xhr.send();
+            //监听readystate状态
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    //alert(xhr.responseText);
+                    var result = JSON.parse(xhr.responseText);
+                    // console.log(result.data);
+
+                    if (result.code === 4) {
+
+                        // result.data是一个数组，每个元素就是一个对象
+                        // 对象中的内容就是每行的内容
+                        // 每个对像需要生成一个行，对象中的每个属性（id,username）对应着一个列
+                        // 批量生成行，循环
+                        var oTable = document.getElementsByClassName("table")[0];
+                        // var oTable = document.getElementById("table");
+                        // console.log(result.data);
+                        var list = result.data;
+                        for (var i = 0; i < list.length; i++) {
+                            // console.log(result.data[i]);
+                            var oCol_Wrapper = document.createElement("div");
+                            oCol_Wrapper.className = 'col-wrapper';
+
+                            var oRow = document.createElement("div");
+                            oRow.className = 'row';
+                            oRow.appendChild(oCol_Wrapper);
+
+
+                            op = document.createElement('div');
+                            op.className = 'col';
+                            oRow.appendChild(op);
+
+                            oDeal = document.createElement('div');
+                            oDeal.className = 'deal';
+                            op.appendChild(oDeal);
+                            oDeal.innerHTML = '<input type="button" value="修改" class="update">' +
+                                '<input type="button" value="删除" class="delete">';
+                            // console.log(oRow);
+                            // result.data[i]是一个对象,所以不能用result.data[i].length的方法来循环
+                            // 要用for-in遍历每个对象
+
+                            var obj = list[i];
+                            for (item in obj) {
+                                // console.log(item);
+                                // console.log(obj[item]);
+                                // console.log(item, "===>", obj[item]);
+                                // 每次拿出一个数据值的时候去创建一个列,然后把这个值赋给列
+
+                                var oCol = document.createElement("div");
+                                oCol.className = 'col';
+
+                                oCol_Wrapper.appendChild(oCol);
+                                oCol.innerHTML = obj[item];
+                                // console.log(oCol);
+                                // 然后把列的内容加入到行中
+                                // console.log(oCol_Wrapper);
+
+                            }
+                            oTable.appendChild(oRow);
+                            // console.log(oTable);
+                        }
+
+                    }
+
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

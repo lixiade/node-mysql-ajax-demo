@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/register.css">
+</head>
+
+<body>
+
+    <div class="main">
+        <div class="top_line">
+            <span id="zhuce" style="font-size: 38px;">注册</span>
+        </div>
+        <div class="register_container">
+            <form method="post">
+                <div class="form_input">
+                    <div class="input_name">
+                        <input type="text" name="username" id="username" placeholder="昵称" autocomplete="off"
+                            class="input_inner" />
+                    </div>
+                    <p id="message" class="input_msg"></p>
+                </div>
+                <div class="hidden_safe"></div>
+                <div class="form_input">
+                    <div class="input_name">
+                        <input type="password" name="password" id="password" placeholder="密码(6-16个字符组成,区分大小写)"
+                            autocomplete="off" class="input_inner" />
+                    </div>
+                </div>
+                <div class="hidden_safe"></div>
+                <div class="form_input">
+                    <div class="input_name">
+                        <input type="password" name="check_password" id="check_password"
+                            placeholder="确认密码(6-16个字符组成,区分大小写)" autocomplete="off" class="input_inner" />
+                    </div>
+                </div>
+                <div class="hidden_safe"></div>
+
+                <div class="form_input">
+                    <button type="button" id="RegBtn" class="el_button final_btn">注册</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var oUser = document.getElementById("username");
+        var oPwd = document.getElementById("password");
+        var oCheckPwd = document.getElementById("check_password");
+        var oRegBtn = document.getElementById("RegBtn");
+
+        oRegBtn.onclick = function () {
+            try {
+                var xhr = new XMLHttpRequest()
+            } catch{
+                var xhr = new ActiveXObject('Microsoft.XMLHTTP')
+            }
+            xhr.open('POST', '/register', true);
+            //发送请求,get方式数据在url地址中，post方式在header请求头中
+            xhr.send("username=" + oUser.value + "&password=" + oPwd.value + "&check_password=" + oCheckPwd.value);
+            //监听readystate状态
+            xhr.onreadystatechange = function (ev) {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    //alert(xhr.responseText);
+                    var obj = JSON.parse(xhr.responseText);
+                    if (obj.code === 666) {
+                        // window.location.href("/login.html");
+                        window.location.href = "/login.html";
+                    } else {
+                        alert(obj.message);
+                    }
+                }
+            }
+        }
+    </script>
+
+
+
+</body>
+
+</html>
